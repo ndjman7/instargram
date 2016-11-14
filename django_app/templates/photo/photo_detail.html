@@ -1,0 +1,8 @@
+<img src="{{object.image.url}}" alt="">
+{% for comment in photo.photocomment_set.all %}
+    <p>{{ comment.content }}</p>
+{% endfor %}
+<form action="" method="POST">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create</button>
+</form>
