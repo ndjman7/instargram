@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'member',
     'photo',
 ]
-
+LOGIN_URL = 'auth:login'
+LOGIN_REDIRECT_URL = 'photo:photo_list'
 AUTH_USER_MODEL = 'member.MyUser'
 
 MIDDLEWARE = [
