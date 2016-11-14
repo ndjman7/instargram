@@ -21,6 +21,9 @@ class Photo(models.Model):
         related_name='photo_set_like_users',
     )
 
+    class Meta:
+        ordering = ['-pk']
+
     def to_dict(self):
         ret = {
             'id':self.id,
