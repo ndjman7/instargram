@@ -14,6 +14,8 @@ from django.views.generic.detail import SingleObjectMixin
 from photo.models import Photo, PhotoComment
 from django import forms
 
+from photo.tasks import photo_add_after
+
 
 def photo_list(request):
     photos = Photo.objects.all()
@@ -34,7 +36,9 @@ class PhotoCreate(CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        return super(PhotoCreate, self).form_valid(form)
+        ret = super(PhotoCreate, self).form_valid(form)
+        photo_add_after.delay(self.object.pk)
+        return ret
 
 
 class AddCommentForm(forms.Form):
